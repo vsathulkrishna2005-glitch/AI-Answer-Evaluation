@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Answer Evaluation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🧠 AI Answer Evaluation</h1>
+    <p class="subtitle">Smart grading system using AI</p>
+
+    <form method="POST" class="card">
+
+        <div class="input-box">
+            <label>Reference Answer</label>
+            <textarea name="reference" required placeholder="Enter teacher's answer..."></textarea>
+        </div>
+
+        <div class="input-box">
+            <label>Student Answer</label>
+            <textarea name="student" required placeholder="Enter student's answer..."></textarea>
+        </div>
+
+        <button type="submit">Evaluate 🚀</button>
+    </form>
+
+    {% if marks %}
+    <div class="result-card">
+        <h2>📊 Result</h2>
+
+        <div class="marks">
+            <span>{{ marks }}/10</span>
+        </div>
+
+        <p><strong>Similarity:</strong> {{ similarity }}</p>
+        <p><strong>Feedback:</strong> {{ feedback }}</p>
+    </div>
+    {% endif %}
+
+    <div class="card upload-section">
+        <h3>📂 Bulk Evaluation</h3>
+
+        <form action="/evaluate_csv" method="POST" enctype="multipart/form-data">
+            <textarea name="reference" required placeholder="Enter reference answer..."></textarea>
+            <input type="file" name="file" required>
+            <button type="submit">Evaluate CSV</button>
+        </form>
+    </div>
+
+</div>
+<a href="/logout" class="back-btn">Logout</a>
+</body>
+</html>
